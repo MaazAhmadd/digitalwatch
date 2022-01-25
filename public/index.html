@@ -443,10 +443,14 @@
           });
         }
       };
-      document.getElementById("digital-clock").addEventListener("click", () => {
-        openFullscreen();
-        closeFullscreen();
-      });
+      if (window.innerWidth > 700) {
+        document
+          .getElementById("digital-clock")
+          .addEventListener("click", () => {
+            openFullscreen();
+            closeFullscreen();
+          });
+      }
       // document.querySelector("body").addEventListener("click", () => {
       // });
 
