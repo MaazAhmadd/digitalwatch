@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Open+Sans+Condensed:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --clr-primary-1: #222831;
+        --clr-primary-2: #393e46;
+        --clr-primary-3: #00adb5;
+        --clr-primary-4: #eeeeee;
+
+        --clr-timing-1: #ebc20c;
+        --clr-timing-2: #ff6464;
+        --clr-timing-3: #91c483;
+        --clr-timing-4: #eeeeee;
+
+        /* darkest grey - used for headings */
+        --clr-grey-1: hsl(209, 61%, 16%);
+        --clr-grey-2: hsl(211, 39%, 23%);
+        --clr-grey-3: hsl(209, 34%, 30%);
+        --clr-grey-4: hsl(209, 28%, 39%);
+        /* grey used for paragraphs */
+        --clr-grey-5: hsl(210, 22%, 49%);
+        --clr-grey-6: hsl(209, 23%, 60%);
+        --clr-grey-7: hsl(211, 27%, 70%);
+        --clr-grey-8: hsl(210, 31%, 80%);
+        --clr-grey-9: hsl(212, 33%, 89%);
+        --clr-grey-10: hsl(210, 36%, 96%);
+        --clr-white: #fff;
+        --clr-red-dark: hsl(360, 67%, 44%);
+        --clr-red-light: hsl(360, 71%, 66%);
+        --clr-green-dark: hsl(125, 67%, 44%);
+        --clr-green-light: hsl(125, 71%, 66%);
+        --clr-black: #222;
+        --transition: all 0.3s linear;
+        --spacing: 0.1rem;
+        --radius: 0.25rem;
+        --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        --max-width: 1170px;
+        --fixed-width: 620px;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      *,
+      ::after,
+      ::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
+      /* @font-face {
+  font-family: "Open Sans Condensed";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/OpenSansCondensed-Light.woff") format("woff");
+} */
+      /* @font-face {
+  font-family: "Futura";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Futura-Book-font.woff") format("woff");
+} */
+
+      body {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        text-transform: capitalize;
+        transition: var(--transition);
+      }
+      .rotate {
+        transform: rotate(270deg);
+      }
+      #digital-clock {
+        height: 100vw;
+        background-color: var(--clr-primary-1);
+        width: 100vh;
+        margin: auto;
+      }
+      .time {
+        text-align: center;
+        font-family: "Open Sans Condensed", sans-serif;
+        font-size: 120px;
+        font-weight: 900;
+        color: var(--clr-primary-3);
+        background-color: var(--clr-primary-2);
+        padding: 70px 0 20px 0;
+        letter-spacing: 2px;
+      }
+      .date {
+        text-align: center;
+        font-family: "Open Sans Condensed", sans-serif;
+        font-size: 35px;
+        font-weight: 600;
+        color: var(--clr-primary-3);
+        background-color: var(--clr-primary-2);
+        padding: 10px 0 30px 0;
+      }
+      .salat-table {
+        font-family: "Lato", sans-serif;
+        font-weight: 600;
+        color: var(--clr-primary-4);
+        padding: 80px 10px 0 10px;
+      }
+      .salat-table_top {
+        display: flex;
+        justify-content: space-around;
+        font-size: 30px;
+        letter-spacing: 5px;
+      }
+      .no-space {
+        font-size: 28px;
+        letter-spacing: 0px;
+      }
+      .all-table-items {
+        background-color: var(--clr-primary-2);
+        height: 90px;
+        margin: 70px 40px 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 30px;
+        letter-spacing: 5px;
+        box-shadow: 0 0 20px 0 rgb(75 75 75);
+      }
+      .all-table-items > div {
+        width: 200px;
+        text-align: center;
+      }
+      .green {
+        background-color: var(--clr-timing-3);
+        box-shadow: 0 0 20px 0 rgb(145 255 115);
+      }
+      .yellow {
+        background-color: var(--clr-timing-1);
+        box-shadow: 0 0 20px 0 rgb(255 240 120);
+        /* color: var(--clr-primary-2); */
+      }
+      .red {
+        background-color: var(--clr-timing-2);
+        box-shadow: 0 0 20px 0 rgb(255 120 120);
+        animation: center-animate 0.9s ease-out infinite alternate;
+      }
+      @keyframes center-animate {
+        0% {
+          transform: scaleX(1.07) scaleY(1.07);
+        }
+        100% {
+          transform: scaleX(1) scaleY(1);
+        }
+      }
+
+      .wrapper {
+        padding: 50px 0;
+        margin-top: 18%;
+        background-color: var(--clr-primary-2);
+        color: var(--clr-primary-3);
+
+        font-family: "Lato";
+        letter-spacing: 1px;
+        font-size: 30px;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .marquee {
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        animation: marquee 60s linear infinite;
+      }
+
+      .marquee p {
+        display: inline-block;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translate3d(20%, 0, 0);
+        }
+        100% {
+          transform: translate3d(-100%, 0, 0);
+        }
+      }
+
+      .toshowhide {
+        display: none;
+      }
+      #edit {
+        padding: 40px;
+        font-size: 24px;
+      }
+      #showhidebtn {
+        width: 100px;
+        height: 60px;
+        font-size: 30px;
+      }
+      #setdefault {
+        width: 150px;
+        height: 80px;
+        font-size: 30px;
+      }
+      input {
+        width: 200px;
+        height: 50px;
+      }
+
+      .fullscreen {
+        position: fixed;
+        left: 21.5%;
+        top: -39%;
+        z-index: 1000000;
+      }
+
+      #fullscreen {
+        width: 100px;
+        height: 50px;
+        margin-left: 3%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="digital-clock">
+      <div id="svgimg1"></div>
+      <div id="svgimg2"></div>
+      <div class="time"></div>
+      <div class="date"></div>
+      <div class="salat-table">
+        <div class="salat-table_top"></div>
+        <div class="salat-table_fajr all-table-items"></div>
+        <div class="salat-table_dohr all-table-items"></div>
+        <div class="salat-table_asr all-table-items"></div>
+        <div class="salat-table_maghrib all-table-items"></div>
+        <div class="salat-table_isha all-table-items"></div>
+      </div>
+      <div class="wrapper"></div>
+    </div>
+    <div id="edit">
+      <button id="showhidebtn">edit</button>
+      <div id="showhide" class="toshowhide">
+        <button
+          style="width: 80px; height: 50px"
+          onClick="window.location.reload();"
+        >
+          OK
+        </button>
+        <p>
+          choose your option for theme. from 0 to 14, recommended ones are
+          0,1,2,3,7,9,10,13,14
+        </p>
+        <input type="number" id="edittheme" />
+        <!-- <p>
+          enter the amount of time in minutes, which you want to add into the
+          time coming from the api. so if api time is 6:20 and you write 30 here
+          then your iqamah time will be 6:50... note that time from api is exact
+          and coming from adhan api for sweden, stockholm.
+        </p>
+        <input type="number" id="editapitime" /> -->
+        <p>
+          enter amount of time in minutes, which you want between adhan and
+          iqamah, default is 20 minutes
+        </p>
+        <p>fajr:</p>
+        <input type="number" id="editadhantime_f" />
+        <p>dhohr</p>
+        <input type="number" id="editadhantime_d" />
+        <p>asr</p>
+        <input type="number" id="editadhantime_a" />
+        <p>maghrib</p>
+        <input type="number" id="editadhantime_m" />
+        <p>isha</p>
+        <input type="number" id="editadhantime_i" />
+        <p>enter 0 for horizontal and 1 for vertical screen, default is 1</p>
+        <input type="number" id="editrotation" />
+        <!-- <p>enter hadith</p> -->
+        <!-- <input type="text" id="hadith" /> -->
+        <br />
+        <br />
+        <button
+          style="width: 80px; height: 50px"
+          onClick="window.location.reload();"
+        >
+          OK
+        </button>
+        <br />
+        <br />
+        <br />
+        <button id="setdefault">set to default</button>
+      </div>
+    </div>
+    <script>
+      var elem = document.querySelector("body");
+
+      let openFullscreen = () => {
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().then(() => {
+            document
+              .getElementById("digital-clock")
+              .classList.add("fullscreen");
+          });
+        } else if (elem.webkitRequestFullscreen) {
+          /* Safari */
+          elem.webkitRequestFullscreen().then(() => {
+            document
+              .getElementById("digital-clock")
+              .classList.add("fullscreen");
+          });
+        } else if (elem.msRequestFullscreen) {
+          /* IE11 */
+          elem.msRequestFullscreen().then(() => {
+            document
+              .getElementById("digital-clock")
+              .classList.add("fullscreen");
+          });
+        }
+      };
+      let closeFullscreen = () => {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().then(() => {
+            document
+              .getElementById("digital-clock")
+              .classList.remove("fullscreen");
+          });
+        } else if (document.webkitExitFullscreen) {
+          /* Safari */
+          document.webkitExitFullscreen().then(() => {
+            document
+              .getElementById("digital-clock")
+              .classList.remove("fullscreen");
+          });
+        } else if (document.msExitFullscreen) {
+          /* IE11 */
+          document.msExitFullscreen().then(() => {
+            document
+              .getElementById("digital-clock")
+              .classList.remove("fullscreen");
+          });
+        }
+      };
+      document.getElementById("digital-clock").addEventListener("click", () => {
+        openFullscreen();
+        closeFullscreen();
+      });
+      // document.querySelector("body").addEventListener("click", () => {
+      // });
+
+      // window.scrollTo({
+      //   top: 393,
+      //   left: 0,
+      //   behavior: "smooth",
+      // });
+
+      // document
+      //   .querySelector("body")
+      //   .requestFullscreen()
+      //   .then(() => {
+      //     let c = document.getElementById("digital-clock");
+      //     c.style.position = "fixed";
+      //     c.style.left = "21.5%";
+      //     c.style.top = "-39%";
+      //   });
+
+      // 0,1,2,6,8,9,12,13
+      let setdefault = () => {
+        localStorage.setItem("option", 0);
+        // localStorage.setItem("iqamahdiff", 0);
+        localStorage.setItem("salatadandiff_f", 20);
+        localStorage.setItem("salatadandiff_d", 20);
+        localStorage.setItem("salatadandiff_a", 20);
+        localStorage.setItem("salatadandiff_m", 20);
+        localStorage.setItem("salatadandiff_i", 20);
+        localStorage.setItem("rotateH", 1);
+        // localStorage.setItem(
+        //   "hadith",
+        //   `11Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
+        //   22volutpat, ante eu bibendum tincidunt, sem lacus vehicula augue, ut
+        //   33suscipit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        //   44Fusce volutpat, ante eu bibendum tincidunt, sem lacus vehicula augue,
+        //   55ut suscipit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        //   66Fusce volutpat, ante eu bibendum tincidunt, sem lacus vehicula augue`
+        // );
+      };
+      if (!localStorage.getItem("salatadandiff_f")) {
+        setdefault();
+      }
+      let option = Number(localStorage.getItem("option"));
+      // let iqamahdiff = Number(localStorage.getItem("iqamahdiff"));
+      let salatadandiff_f = Number(localStorage.getItem("salatadandiff_f"));
+      let salatadandiff_d = Number(localStorage.getItem("salatadandiff_d"));
+      let salatadandiff_a = Number(localStorage.getItem("salatadandiff_a"));
+      let salatadandiff_m = Number(localStorage.getItem("salatadandiff_m"));
+      let salatadandiff_i = Number(localStorage.getItem("salatadandiff_i"));
+      let rotateH = Number(localStorage.getItem("rotateH"));
+      // let hadith = localStorage.getItem("hadith");
+
+      let edittheme = document.getElementById("edittheme");
+      edittheme.addEventListener("change", () => {
+        localStorage.setItem("option", edittheme.value);
+      });
+      // let editapitime = document.getElementById("editapitime");
+      // editapitime.addEventListener("change", () => {
+      //   localStorage.setItem("iqamahdiff", editapitime.value);
+      // });
+      //salatadan
+      let editadhantime_f = document.getElementById("editadhantime_f");
+      editadhantime_f.addEventListener("change", () => {
+        localStorage.setItem("salatadandiff_f", editadhantime_f.value);
+      });
+      let editadhantime_d = document.getElementById("editadhantime_d");
+      editadhantime_d.addEventListener("change", () => {
+        localStorage.setItem("salatadandiff_d", editadhantime_d.value);
+      });
+      let editadhantime_a = document.getElementById("editadhantime_a");
+      editadhantime_a.addEventListener("change", () => {
+        localStorage.setItem("salatadandiff_a", editadhantime_a.value);
+      });
+      let editadhantime_m = document.getElementById("editadhantime_m");
+      editadhantime_m.addEventListener("change", () => {
+        localStorage.setItem("salatadandiff_m", editadhantime_m.value);
+      });
+      let editadhantime_i = document.getElementById("editadhantime_i");
+      editadhantime_i.addEventListener("change", () => {
+        localStorage.setItem("salatadandiff_i", editadhantime_i.value);
+      });
+      //salatadan end
+      let editrotation = document.getElementById("editrotation");
+      editrotation.addEventListener("change", () => {
+        localStorage.setItem("rotateH", editrotation.value);
+      });
+      // let edithadith = document.getElementById("hadith");
+      // edithadith.addEventListener("change", () => {
+      //   localStorage.setItem("hadith", edithadith.value);
+      // });
+
+      document.getElementById("showhidebtn").addEventListener("click", () => {
+        document.getElementById("showhide").classList.toggle("toshowhide");
+      });
+      document
+        .getElementById("setdefault")
+        .addEventListener("click", setdefault);
+      if (rotateH) {
+        document.getElementById("digital-clock").classList.add("rotate");
+      }
+
+      let alldays = [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+      ];
+      let allmonths = [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december",
+      ];
+      const roundd = (n) => {
+        let arr = n.split(":");
+        let h = arr[0];
+        let m = arr[1];
+        h = Number(h);
+        m = Number(m);
+        while (m == 60 || h == 24 || m % 5 != 0) {
+          if (m == 60 || m > 59) {
+            m = `00`;
+            if (h >= 23) {
+              h = `00`;
+              break;
+            } else {
+              h = Number(h) + 1;
+              break;
+            }
+          } else {
+            m = Number(m) + 1;
+          }
+        }
+        if (h.toString().length == 1) {
+          h = `0${h}`;
+        }
+        if (m.toString().length == 1) {
+          m = `0${m}`;
+        }
+        return `${h}:${m}`;
+      };
+
+      const reduce = (n, i = 20) => {
+        i = Math.abs(i);
+        let [h, m] = n.split(":");
+        h = Number(h);
+        m = Number(m);
+        let minutes = h * 60 + m;
+        minutes = minutes - i;
+
+        return `${
+          Math.floor(minutes / 60) < 0
+            ? "23"
+            : Math.floor(minutes / 60) < 10
+            ? "0" + Math.floor(minutes / 60)
+            : Math.floor(minutes / 60)
+        }:${
+          minutes < 0
+            ? 60 - Math.abs(minutes)
+            : Math.floor(minutes % 60) < 10
+            ? "0" + Math.floor(minutes % 60)
+            : Math.floor(minutes % 60)
+        }`;
+      };
+      const increase = (n, i = 20) => {
+        let [h, m] = n.split(":");
+        h = Number(h);
+        m = Number(m);
+        let minutes = h * 60 + m;
+        minutes = minutes + i;
+
+        return `${
+          Math.floor(minutes / 60) > 23
+            ? "00"
+            : Math.floor(minutes / 60) < 10
+            ? "0" + Math.floor(minutes / 60)
+            : Math.floor(minutes / 60)
+        }:${
+          minutes < 0
+            ? 60 - Math.abs(minutes)
+            : Math.floor(minutes % 60) < 10
+            ? "0" + Math.floor(minutes % 60)
+            : Math.floor(minutes % 60)
+        }`;
+      };
+
+      let tominutes = (n) => {
+        let [h, m] = n.split(":");
+        h = Number(h);
+        m = Number(m);
+        return h * 60 + m;
+      };
+
+      let date = new Date();
+      // let month = allmonths[date.getMonth()];
+      let y = date.getFullYear();
+
+      let latitude = "59.338607";
+      latitude = latitude.substring(0, 9);
+      let longitude = "18.042208";
+      longitude = longitude.substring(0, 9);
+
+      // fetch(
+      //   `http://api.aladhan.com/v1/calendar?latitude=${latitude}&longitude=${longitude}&method=2&month=${month}&year=${y}`
+      // )
+      //   .then((r) => r.json())
+      //   .then((d) => {
+      //     let monthData = d.data;
+      fetch("/time")
+        .then((data) => data.json())
+        .then((d) => {
+          console.log("fetch");
+          let year = d;
+          document.getElementsByClassName("wrapper")[0].innerHTML = `
+<div class="marquee">
+        <p id="hadith">
+          ${year[year.length - 1][0].hadith}
+        </p>
+      </div>
+`;
+          let monthData = year[date.getMonth()];
+
+          const checkTimer = () => {
+            let date = new Date();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            let today = date.getDate();
+            let day = alldays[date.getDay()];
+            let currentTime = `${hour}:${minute}`;
+
+            let fajr = monthData[today - 1].timings.Fajr.split(" ")[0];
+            let dohr = monthData[today - 1].timings.Dhuhr.split(" ")[0];
+            let asr = monthData[today - 1].timings.Asr.split(" ")[0];
+            let maghrib = monthData[today - 1].timings.Maghrib.split(" ")[0];
+            let isha = monthData[today - 1].timings.Isha.split(" ")[0];
+            // fajr = roundd(fajr.toString());
+            // dohr = roundd(dohr.toString());
+            // asr = roundd(asr.toString());
+            // maghrib = roundd(maghrib.toString());
+            // isha = roundd(isha.toString());
+
+            // if (iqamahdiff >= 0) {
+            //   fajr = increase(fajr, iqamahdiff);
+            //   dohr = increase(dohr, iqamahdiff);
+            //   asr = increase(asr, iqamahdiff);
+            //   maghrib = increase(maghrib, iqamahdiff);
+            //   isha = increase(isha, iqamahdiff);
+            // } else {
+            //   fajr = reduce(fajr, iqamahdiff);
+            //   dohr = reduce(dohr, iqamahdiff);
+            //   asr = reduce(asr, iqamahdiff);
+            //   maghrib = reduce(maghrib, iqamahdiff);
+            //   isha = reduce(isha, iqamahdiff);
+            // }
+
+            let table_top =
+              document.getElementsByClassName("salat-table_top")[0];
+            table_top.innerHTML = `
+<div>SALAT</div>
+<div style="margin-left:35px;">AZAN</div>
+<div>IQAMAH</div>
+`;
+
+            let table_fajr =
+              document.getElementsByClassName("salat-table_fajr")[0];
+            table_fajr.innerHTML = `
+<div>FAJR <span class="no-space">الفجر</span></div>
+<div>${reduce(fajr, salatadandiff_f)}</div>
+<div>${fajr}</div>
+`;
+            let table_dohr =
+              document.getElementsByClassName("salat-table_dohr")[0];
+            // day = alldays[5];
+            if (day == "friday") {
+              table_dohr.innerHTML = `
+  <div>JUMMAH <span class="no-space">الجمعة</span></div>
+  <div>${reduce(dohr, salatadandiff_d)}</div>
+  <div>${dohr}</div>
+  `;
+            } else {
+              table_dohr.innerHTML = `
+  <div>DHOHR <span class="no-space">الظهر</span></div>
+  <div>${reduce(dohr, salatadandiff_d)}</div>
+  <div>${dohr}</div>
+  `;
+            }
+            let table_asr =
+              document.getElementsByClassName("salat-table_asr")[0];
+            table_asr.innerHTML = `
+<div>ASR <span class="no-space">العصر</span></div>
+<div>${reduce(asr, salatadandiff_a)}</div>
+<div>${asr}</div>
+`;
+            let table_maghrib = document.getElementsByClassName(
+              "salat-table_maghrib"
+            )[0];
+            table_maghrib.innerHTML = `
+<div>MAGHRIB <span class="no-space">المغرب</span></div>
+<div>${reduce(maghrib, salatadandiff_m)}</div>
+<div>${maghrib}</div>
+`;
+            let table_isha =
+              document.getElementsByClassName("salat-table_isha")[0];
+            table_isha.innerHTML = `
+<div>ISHA <span class="no-space">العشاء</span></div>
+<div>${reduce(isha, salatadandiff_i)}</div>
+<div>${isha}</div>
+`;
+
+            fajr = tominutes(fajr);
+            dohr = tominutes(dohr);
+            asr = tominutes(asr);
+            maghrib = tominutes(maghrib);
+            isha = tominutes(isha);
+            currentTime = tominutes(currentTime);
+            console.log(fajr, dohr, asr, maghrib, isha, currentTime);
+
+            if (currentTime <= fajr || currentTime >= isha) {
+              if (currentTime <= 1440 && currentTime >= isha) {
+                table_isha.classList.remove("yellow");
+                table_isha.classList.remove("red");
+                table_fajr.classList.add("green");
+              } else if (fajr - currentTime <= 31 && fajr - currentTime >= 5) {
+                table_fajr.classList.add("yellow");
+              } else if (fajr - currentTime <= 5) {
+                table_fajr.classList.add("red");
+              } else {
+                table_isha.classList.remove("yellow");
+                table_isha.classList.remove("red");
+                table_fajr.classList.add("green");
+              }
+            } else if (currentTime >= fajr && currentTime <= dohr) {
+              if (dohr - currentTime <= 31 && dohr - currentTime >= 5) {
+                table_dohr.classList.add("yellow");
+              } else if (dohr - currentTime <= 5) {
+                table_dohr.classList.add("red");
+              } else {
+                table_fajr.classList.remove("yellow");
+                table_fajr.classList.remove("red");
+                table_dohr.classList.add("green");
+              }
+            } else if (currentTime >= dohr && currentTime <= asr) {
+              if (asr - currentTime <= 31 && asr - currentTime >= 5) {
+                table_asr.classList.add("yellow");
+              } else if (asr - currentTime <= 5) {
+                table_asr.classList.add("red");
+              } else {
+                table_dohr.classList.remove("yellow");
+                table_dohr.classList.remove("red");
+                table_asr.classList.add("green");
+              }
+            } else if (currentTime >= asr && currentTime <= maghrib) {
+              if (maghrib - currentTime <= 31 && maghrib - currentTime >= 5) {
+                table_maghrib.classList.add("yellow");
+              } else if (maghrib - currentTime <= 5) {
+                table_maghrib.classList.add("red");
+              } else {
+                table_asr.classList.remove("yellow");
+                table_asr.classList.remove("red");
+                table_maghrib.classList.add("green");
+              }
+            } else if (currentTime >= maghrib && currentTime <= isha) {
+              if (isha - currentTime <= 31 && isha - currentTime >= 5) {
+                table_isha.classList.add("yellow");
+              } else if (isha - currentTime <= 5) {
+                table_isha.classList.add("red");
+              } else {
+                table_maghrib.classList.remove("yellow");
+                table_maghrib.classList.remove("red");
+                table_isha.classList.add("green");
+              }
+            }
+            setTimeout(checkTimer, 1000);
+          };
+          checkTimer();
+        });
+
+      function Time() {
+        let date = new Date();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+        let today = date.getDate();
+        let month = allmonths[date.getMonth()];
+        let day = alldays[date.getDay()];
+
+        hour = update(hour);
+        minute = update(minute);
+        second = update(second);
+        today = update(today);
+
+        document.getElementsByClassName(
+          "time"
+        )[0].innerHTML = `<div style="display:flex;justify-content: center" >
+    <div style="width:120px;z-index:5;">${hour}</div>
+    :
+    <div style="width:120px;z-index:5;">${minute}</div>
+    :
+    <div style="width:120px;z-index:5;">${second}</div>
+    
+    
+  </div>
+  
+  `;
+        // <div style="width:120px">${period}</div>;
+        document.getElementsByClassName(
+          "date"
+        )[0].innerHTML = `<div style="display:flex;justify-content: flex-end;margin-right: 40px;" >
+  <div style="width:100px">${day}</div>
+  
+  <div style="width:40px">${today}</div>
+  
+  <div style="width:100px">${month}</div>
+    
+  </div> 
+  
+  `;
+        setTimeout(Time, 1000);
+      }
+      function update(t) {
+        if (t < 10) {
+          return "0" + t;
+        } else {
+          return t;
+        }
+      }
+
+      Time();
+      let palettes = [
+        //original
+        ["#e5e4e0", "#ffffff", "#1a224e", "#194c68"],
+        //dark
+        ["#222831", "#393E46", "#00ADB5", "#eeeeee"],
+        ["#364F6B", "#3FC1C9", "#FC5185", "#F5F5F5"],
+        ["#064635", "#519259", "#F0BB62", "#F4EEA9"],
+        //light
+        ["#F0ECE3", "#DFD3C3", "#C7B198", "#A68DAD"],
+        ["#F6D7A7", "#F6EABE", "#C8E3D4", "#87AAAA"],
+        ["#98DDCA", "#D5ECC2", "#FFD3B4", "#FFAAA7"],
+        ["#FEFFDE", "#DDFFBC", "#91C788", "#52734D"],
+        ["#000000", "#5800FF", "#E900FF", "#FFC600"],
+        //flag
+        ["#006AA7", "#FECC02", "#24A19C", "#FAEEE7"],
+
+        //not checked yet
+        ["#DDDDDD", "#222831", "#F05454", "#658fba"],
+        ["#E3FDFD", "#CBF1F5", "#A6E3E9", "#71C9CE"],
+        ["#DEFCF9", "#CADEFC", "#C3BEF0", "#CCA8E9"],
+        ["#F67280", "#C06C84", "#6C5B7B", "#355C7D"],
+        ["#08D9D6", "#252A34", "#FF2E63", "#EAEAEA"],
+        ["#", "#", "#", "#"],
+        ["#", "#", "#", "#"],
+      ];
+
+      let hextohsl = (hex) => {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
+        var r = parseInt(result[1], 16);
+        var g = parseInt(result[2], 16);
+        var b = parseInt(result[3], 16);
+
+        (r /= 255), (g /= 255), (b /= 255);
+        var max = Math.max(r, g, b),
+          min = Math.min(r, g, b);
+        var h,
+          s,
+          l = (max + min) / 2;
+
+        if (max == min) {
+          h = s = 0;
+        } else {
+          var d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+          switch (max) {
+            case r:
+              h = (g - b) / d + (g < b ? 6 : 0);
+              break;
+            case g:
+              h = (b - r) / d + 2;
+              break;
+            case b:
+              h = (r - g) / d + 4;
+              break;
+          }
+          h /= 6;
+        }
+
+        s = s * 100;
+        s = Math.round(s);
+        l = l * 100;
+        l = Math.round(l);
+        h = Math.round(360 * h);
+
+        l = l + 20;
+        function hsltohex(h, s, l) {
+          l /= 100;
+          const a = (s * Math.min(l, 1 - l)) / 100;
+          const f = (n) => {
+            const k = (n + h / 30) % 12;
+            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+            return Math.round(255 * color)
+              .toString(16)
+              .padStart(2, "0");
+          };
+          return `#${f(0)}${f(8)}${f(4)}`;
+        }
+        var colorInHSL = hsltohex(h, s, l);
+        return colorInHSL;
+      };
+
+      document.documentElement.style.setProperty(
+        "--clr-primary-1",
+        palettes[option][0]
+      );
+      document.documentElement.style.setProperty(
+        "--clr-primary-2",
+        palettes[option][1]
+      );
+      document.documentElement.style.setProperty(
+        "--clr-primary-3",
+        palettes[option][2]
+      );
+      document.documentElement.style.setProperty(
+        "--clr-primary-4",
+        palettes[option][3]
+      );
+
+      let svgimg1 = `<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="100%" height="100%" viewBox="0 0 522.000000 550.000000" preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,550.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+<path fill="currentColor" d="M813 5493 c-10 -4 -13 -515 -13 -2509 0 -2126 -2 -2504 -14 -2504 -7 0 -51 19 -97 42 -149 74 -265 216 -315 383 -25 82 -25 258 0 340 38 127 115 238 233 338 38 31 42 56 14 81 -17 16 -25 16 -58 6 -117 -38 -243 -121 -339 -223 -87 -90 -146 -188 -187 -305 -27 -77 -31 -104 -35 -228 -4 -120 -1 -152 17 -225 77 -304 300 -529 606 -610 111 -29 288 -29 399 0 333 88 584 374 622 711 6 55 5 59 -19 75 -33 21 -59 8 -78 -37 -89 -222 -346 -387 -588 -376 l-66 3 -3 2509 c-1 1834 -5 2513 -13 2522 -11 14 -42 17 -66 7z m-489 -4117 c-46 -101 -64 -183 -64 -301 0 -127 19 -206 77 -325 38 -79 59 -108 132 -180 145 -144 303 -210 506 -210 168 0 304 44 432 141 35 27 66 49 68 49 18 0 -74 -120 -145 -191 -133 -133 -273 -194 -470 -206 -282 -17 -553 136 -684 387 -63 121 -81 198 -81 350 1 125 3 141 32 223 39 111 82 182 161 268 35 38 65 69 67 69 2 0 -12 -33 -31 -74z"/>
+<path fill="currentColor" d="M2432 5488 c-9 -9 -12 -108 -12 -385 l0 -373 -27 -6 c-53 -13 -101 -43 -146 -94 -73 -81 -96 -185 -62 -285 l16 -45 -192 -203 c-111 -118 -199 -219 -210 -242 -10 -22 -21 -65 -25 -95 -5 -36 -15 -65 -32 -85 -45 -54 -62 -104 -62 -187 l0 -78 -66 0 c-63 0 -68 -2 -104 -38 -64 -64 -66 -154 -5 -220 32 -36 36 -37 114 -40 l81 -4 -2 -427 -3 -426 -78 -5 c-75 -5 -80 -7 -112 -42 -59 -64 -59 -152 0 -216 33 -36 35 -37 119 -41 l85 -3 12 -37 c22 -70 83 -174 130 -222 160 -164 456 -260 710 -230 336 41 577 207 649 449 l13 42 75 0 c88 0 125 17 153 72 36 70 17 169 -39 206 -16 11 -55 19 -101 22 l-76 5 0 425 0 425 75 5 c41 3 85 12 98 20 55 35 78 138 46 205 -23 49 -59 69 -133 75 l-64 5 -2 75 c-3 83 -19 131 -64 182 -21 25 -29 47 -34 89 -3 31 -15 75 -27 98 -11 23 -106 131 -210 240 l-190 199 15 42 c49 138 -15 293 -147 359 -34 17 -67 31 -75 31 -11 0 -13 68 -13 373 0 392 -1 397 -45 397 -12 0 -26 -5 -33 -12z m-12 -876 c0 -24 19 -42 45 -42 26 0 45 18 45 42 0 54 112 -27 144 -104 45 -107 -23 -238 -139 -267 -199 -50 -338 202 -188 340 53 49 93 62 93 31z m-145 -402 c4 -6 29 -22 57 -36 96 -49 217 -41 299 18 l42 30 47 -48 c143 -147 305 -323 322 -349 10 -16 18 -45 18 -62 l0 -33 -595 0 -595 0 0 28 c1 15 6 39 13 54 12 28 364 408 378 408 4 0 11 -5 14 -10z m834 -589 c38 -38 52 -79 49 -144 l-3 -62 -684 -3 c-541 -2 -686 0 -693 10 -11 19 -10 102 3 135 5 15 22 40 37 56 l26 27 623 0 c604 0 624 -1 642 -19z m253 -318 c22 -20 23 -61 1 -85 -15 -17 -56 -18 -898 -18 -672 0 -884 3 -893 12 -7 7 -12 28 -12 48 0 20 5 41 12 48 9 9 221 12 892 12 804 0 881 -1 898 -17z m-1462 -624 l0 -430 -52 3 -53 3 -3 415 c-1 228 0 421 3 427 3 8 24 13 55 13 l50 0 0 -431z m1030 1 l0 -431 -57 3 -58 3 -5 225 c-5 213 -6 228 -30 275 -129 264 -504 262 -628 -3 -26 -55 -27 -65 -32 -277 l-5 -220 -57 -3 -58 -3 0 431 0 430 465 0 465 0 0 -430z m210 0 l0 -430 -55 0 -55 0 0 430 0 430 55 0 55 0 0 -430z m-591 165 c61 -21 104 -58 137 -117 l29 -53 0 -210 0 -210 -250 0 -250 0 0 200 c0 170 3 207 18 247 21 55 97 129 149 145 48 16 120 15 167 -2z m813 -702 c22 -20 23 -61 1 -85 -15 -17 -56 -18 -898 -18 -672 0 -884 3 -893 12 -7 7 -12 28 -12 48 0 20 5 41 12 48 9 9 221 12 892 12 804 0 881 -1 898 -17z m-242 -206 c0 -31 -66 -142 -111 -187 -83 -83 -229 -156 -373 -187 -89 -19 -304 -13 -391 11 -98 27 -238 101 -303 161 -54 49 -109 133 -127 193 l-6 22 655 0 c542 0 656 -2 656 -13z"/>
+</g>
+</svg>`;
+
+      let svgimg2 = `<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="100%" height="100%" viewBox="0 0 522.000000 550.000000" preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,550.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+<path fill="currentColor" d="M2432 5488 c-9 -9 -12 -108 -12 -385 l0 -373 -27 -6 c-53 -13 -101 -43 -146 -94 -73 -81 -96 -185 -62 -285 l16 -45 -192 -203 c-111 -118 -199 -219 -210 -242 -10 -22 -21 -65 -25 -95 -5 -36 -15 -65 -32 -85 -45 -54 -62 -104 -62 -187 l0 -78 -66 0 c-63 0 -68 -2 -104 -38 -64 -64 -66 -154 -5 -220 32 -36 36 -37 114 -40 l81 -4 -2 -427 -3 -426 -78 -5 c-75 -5 -80 -7 -112 -42 -59 -64 -59 -152 0 -216 33 -36 35 -37 119 -41 l85 -3 12 -37 c22 -70 83 -174 130 -222 160 -164 456 -260 710 -230 336 41 577 207 649 449 l13 42 75 0 c88 0 125 17 153 72 36 70 17 169 -39 206 -16 11 -55 19 -101 22 l-76 5 0 425 0 425 75 5 c41 3 85 12 98 20 55 35 78 138 46 205 -23 49 -59 69 -133 75 l-64 5 -2 75 c-3 83 -19 131 -64 182 -21 25 -29 47 -34 89 -3 31 -15 75 -27 98 -11 23 -106 131 -210 240 l-190 199 15 42 c49 138 -15 293 -147 359 -34 17 -67 31 -75 31 -11 0 -13 68 -13 373 0 392 -1 397 -45 397 -12 0 -26 -5 -33 -12z m-12 -876 c0 -24 19 -42 45 -42 26 0 45 18 45 42 0 54 112 -27 144 -104 45 -107 -23 -238 -139 -267 -199 -50 -338 202 -188 340 53 49 93 62 93 31z m-145 -402 c4 -6 29 -22 57 -36 96 -49 217 -41 299 18 l42 30 47 -48 c143 -147 305 -323 322 -349 10 -16 18 -45 18 -62 l0 -33 -595 0 -595 0 0 28 c1 15 6 39 13 54 12 28 364 408 378 408 4 0 11 -5 14 -10z m834 -589 c38 -38 52 -79 49 -144 l-3 -62 -684 -3 c-541 -2 -686 0 -693 10 -11 19 -10 102 3 135 5 15 22 40 37 56 l26 27 623 0 c604 0 624 -1 642 -19z m253 -318 c22 -20 23 -61 1 -85 -15 -17 -56 -18 -898 -18 -672 0 -884 3 -893 12 -7 7 -12 28 -12 48 0 20 5 41 12 48 9 9 221 12 892 12 804 0 881 -1 898 -17z m-1462 -624 l0 -430 -52 3 -53 3 -3 415 c-1 228 0 421 3 427 3 8 24 13 55 13 l50 0 0 -431z m1030 1 l0 -431 -57 3 -58 3 -5 225 c-5 213 -6 228 -30 275 -129 264 -504 262 -628 -3 -26 -55 -27 -65 -32 -277 l-5 -220 -57 -3 -58 -3 0 431 0 430 465 0 465 0 0 -430z m210 0 l0 -430 -55 0 -55 0 0 430 0 430 55 0 55 0 0 -430z m-591 165 c61 -21 104 -58 137 -117 l29 -53 0 -210 0 -210 -250 0 -250 0 0 200 c0 170 3 207 18 247 21 55 97 129 149 145 48 16 120 15 167 -2z m813 -702 c22 -20 23 -61 1 -85 -15 -17 -56 -18 -898 -18 -672 0 -884 3 -893 12 -7 7 -12 28 -12 48 0 20 5 41 12 48 9 9 221 12 892 12 804 0 881 -1 898 -17z m-242 -206 c0 -31 -66 -142 -111 -187 -83 -83 -229 -156 -373 -187 -89 -19 -304 -13 -391 11 -98 27 -238 101 -303 161 -54 49 -109 133 -127 193 l-6 22 655 0 c542 0 656 -2 656 -13z"/>
+<path fill="currentColor" d="M4432 5488 c-9 -9 -12 -412 -12 -1752 l0 -1740 -77 -238 -77 -238 -258 0 c-149 0 -267 -4 -277 -10 -22 -11 -32 -35 -25 -55 4 -9 102 -85 220 -170 207 -151 213 -156 204 -183 -5 -15 -41 -124 -79 -243 -39 -118 -71 -224 -71 -235 0 -25 18 -44 43 -44 13 0 317 212 433 302 8 6 85 -45 225 -147 118 -85 221 -155 230 -155 9 0 24 9 34 20 17 19 15 27 -64 271 -56 170 -79 254 -72 262 5 7 100 77 210 157 189 136 201 147 201 177 0 22 -6 36 -19 43 -12 6 -118 10 -275 10 l-255 0 -76 230 -75 230 0 1741 c0 1186 -3 1746 -10 1760 -12 22 -59 26 -78 7z m102 -3853 c32 -99 64 -187 73 -197 14 -16 40 -18 220 -20 l204 -3 -165 -120 c-140 -101 -166 -123 -166 -145 0 -14 26 -108 59 -208 32 -100 56 -182 54 -182 -3 0 -76 52 -163 115 -99 73 -167 115 -182 115 -16 0 -82 -42 -182 -116 -87 -63 -160 -114 -162 -111 -2 2 24 90 58 196 47 144 59 196 52 209 -6 9 -82 68 -169 131 l-159 116 204 5 c113 3 210 9 217 13 7 4 40 95 74 203 35 107 66 191 70 187 3 -5 32 -89 63 -188z"/>
+</g>
+</svg>`;
+
+      let svgitem1 = document.getElementById("svgimg1");
+      svgitem1.innerHTML = svgimg1;
+      svgitem1.style = `
+position:absolute;
+width:180px;
+margin-left:5vh;
+color:var(--clr-primary-1)
+`;
+      let svgitem2 = document.getElementById("svgimg2");
+      svgitem2.innerHTML = svgimg2;
+      svgitem2.style = `
+position:absolute;
+width:180px;
+margin-left:73vh;
+color:var(--clr-primary-1)
+`;
+    </script>
+  </body>
+</html>
