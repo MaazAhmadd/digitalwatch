@@ -108,14 +108,27 @@
         padding: 70px 0 20px 0;
         letter-spacing: 2px;
       }
+      @media only screen and (max-width: 600px) {
+        .time {
+          font-size: 70px;
+          padding: 70px 40px 20px 40px;
+          letter-spacing: 1px;
+        }
+      }
       .date {
         text-align: center;
         font-family: "Open Sans Condensed", sans-serif;
         font-size: 35px;
+        padding: 10px 0 30px 0;
         font-weight: 600;
         color: var(--clr-primary-3);
         background-color: var(--clr-primary-2);
-        padding: 10px 0 30px 0;
+      }
+      @media only screen and (max-width: 600px) {
+        .date {
+          font-size: 23px;
+          padding: 5px 10px 10px 160px;
+        }
       }
       .salat-table {
         font-family: "Lato", sans-serif;
@@ -123,12 +136,25 @@
         color: var(--clr-primary-4);
         padding: 80px 10px 0 10px;
       }
+      @media only screen and (max-width: 600px) {
+        .salat-table {
+          padding: 40px 5px 0 5px;
+        }
+      }
       .salat-table_top {
         display: flex;
         justify-content: space-around;
         font-size: 30px;
         letter-spacing: 5px;
       }
+      @media only screen and (max-width: 600px) {
+        .salat-table_top {
+          font-size: 20px;
+          letter-spacing: 2px;
+          padding: 0 10px;
+        }
+      }
+
       .no-space {
         font-size: 28px;
         letter-spacing: 0px;
@@ -136,17 +162,31 @@
       .all-table-items {
         background-color: var(--clr-primary-2);
         height: 90px;
+        letter-spacing: 5px;
         margin: 70px 40px 0 40px;
+        font-size: 30px;
         display: flex;
         align-items: center;
         justify-content: space-around;
-        font-size: 30px;
-        letter-spacing: 5px;
         box-shadow: 0 0 20px 0 rgb(75 75 75);
       }
+      @media only screen and (max-width: 600px) {
+        .all-table-items {
+          height: 70px;
+          letter-spacing: 2px;
+          margin: 30px 20px 0 20px;
+          font-size: 20px;
+        }
+      }
+
       .all-table-items > div {
         width: 200px;
         text-align: center;
+      }
+      @media only screen and (max-width: 600px) {
+        .all-table-items > div {
+          width: 100px;
+        }
       }
       .green {
         background-color: var(--clr-timing-3);
@@ -174,14 +214,22 @@
       .wrapper {
         padding: 50px 0;
         margin-top: 18%;
-        background-color: var(--clr-primary-2);
-        color: var(--clr-primary-3);
-
-        font-family: "Lato";
-        letter-spacing: 1px;
         font-size: 30px;
         max-width: 100%;
+        letter-spacing: 1px;
+        background-color: var(--clr-primary-2);
+        color: var(--clr-primary-3);
+        font-family: "Lato";
         overflow: hidden;
+      }
+      @media only screen and (max-width: 600px) {
+        .wrapper {
+          padding: 16px 0;
+          margin-top: 8%;
+          font-size: 16px;
+          max-width: 100%;
+          letter-spacing: 1px;
+        }
       }
 
       .marquee {
