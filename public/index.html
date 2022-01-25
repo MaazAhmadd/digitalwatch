@@ -94,8 +94,8 @@
       }
       @media only screen and (max-width: 600px) {
         #digital-clock {
-          height: 100vh;
-          width: 100vw;
+          height: 100%;
+          width: 100%;
         }
       }
       .time {
@@ -237,6 +237,28 @@
         width: 100px;
         height: 50px;
         margin-left: 3%;
+      }
+      #svgimg1 {
+        position: absolute;
+        width: 180px;
+        margin-left: 5vh;
+        color: var(--clr-primary-1);
+      }
+      #svgimg2 {
+        position: absolute;
+        width: 180px;
+        margin-left: 73vh;
+        color: var(--clr-primary-1);
+      }
+      @media only screen and (max-width: 600px) {
+        #svgimg1 {
+          width: 20%;
+          margin-left: 5%;
+        }
+        #svgimg2 {
+          width: 20%;
+          margin-left: 77%;
+        }
       }
     </style>
   </head>
@@ -918,20 +940,9 @@
 
       let svgitem1 = document.getElementById("svgimg1");
       svgitem1.innerHTML = svgimg1;
-      svgitem1.style = `
-position:absolute;
-width:180px;
-margin-left:5vh;
-color:var(--clr-primary-1)
-`;
+
       let svgitem2 = document.getElementById("svgimg2");
       svgitem2.innerHTML = svgimg2;
-      svgitem2.style = `
-position:absolute;
-width:180px;
-margin-left:73vh;
-color:var(--clr-primary-1)
-`;
     </script>
   </body>
 </html>
