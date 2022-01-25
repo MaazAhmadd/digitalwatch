@@ -400,6 +400,30 @@
         <br />
         <br />
         <br />
+        <form method="POST" action="/time" enctype="multipart/form-data">
+          <div>
+            <label
+              >enter admin password and upload your json file of prayer
+              time</label
+            >
+            <input type="text" name="password" />
+            <input type="file" name="prayer_times" />
+          </div>
+          <div>
+            <input
+              type="submit"
+              name="btn_upload_prayer_times"
+              value="Upload"
+            />
+          </div>
+        </form>
+        <br />
+        <br />
+        <a href="/time">
+          <button>download prayer time</button>
+        </a>
+        <br />
+        <br />
         <button id="setdefault">set to default</button>
       </div>
     </div>
