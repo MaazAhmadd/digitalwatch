@@ -479,7 +479,11 @@
         localStorage.setItem("salatadandiff_a", 20);
         localStorage.setItem("salatadandiff_m", 20);
         localStorage.setItem("salatadandiff_i", 20);
-        localStorage.setItem("rotateH", 1);
+        if (window.innerWidth > 700) {
+          localStorage.setItem("rotateH", 1);
+        } else {
+          localStorage.setItem("rotateH", 0);
+        }
         // localStorage.setItem(
         //   "hadith",
         //   `11Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
